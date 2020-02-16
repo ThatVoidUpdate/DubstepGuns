@@ -6,7 +6,8 @@ using UnityEngine.UI;
 [RequireComponent(typeof(AudioSource))]
 public class AudioVolume : MonoBehaviour
 {
-    public Image output;
+    public bool IsOverThreshold;
+    public ParticleSystem system;
     [Range(0.0f,1.0f)]
     public float Cutoff;
     
@@ -41,13 +42,10 @@ public class AudioVolume : MonoBehaviour
             }
             clipLoudness /= sampleDataLength; //clipLoudness is what you are looking for
             //Debug.Log(clipLoudness);
+            IsOverThreshold = clipLoudness > Cutoff;
             if (clipLoudness > Cutoff)
             {
-                output.color = Color.white;
-            }
-            else
-            {
-                output.color = Color.clear;
+                system.Emit(10);
             }
             
         }
