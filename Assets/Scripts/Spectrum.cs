@@ -6,7 +6,7 @@ using UnityEngine;
 public class Spectrum : MonoBehaviour
 {
     public float[] Frequencies;
-    public float FrequencyTolerance;
+    public float[] FrequencyTolerance;
     [Range(0.0f, 1.0f)]
     public float[] Cutoffs;
     public int[] ParticleAmounts;
@@ -30,8 +30,8 @@ public class Spectrum : MonoBehaviour
 
         for (int i = 0; i < Frequencies.Length; i++)
         {
-            float LowFrequency = Frequencies[i] - FrequencyTolerance;
-            float HighFrequency = Frequencies[i] + FrequencyTolerance;
+            float LowFrequency = Frequencies[i] - FrequencyTolerance[i];
+            float HighFrequency = Frequencies[i] + FrequencyTolerance[i];
 
             AudioListener.GetSpectrumData(FreqData, 0, FFTWindow.BlackmanHarris);
             int n1 = (int)Mathf.Floor(LowFrequency * NumSamples / MaxFrequency);
